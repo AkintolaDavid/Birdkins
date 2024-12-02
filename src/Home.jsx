@@ -12,6 +12,10 @@ const Home = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const navigate = useNavigate();
   const toast = useToast();
+  const username = localStorage.getItem("firstName");
+  const formattedUsername =
+    username.charAt(0).toUpperCase() + username.slice(1);
+
   const filteredCourses =
     selectedCategory === "All"
       ? allCourses
@@ -54,7 +58,7 @@ const Home = () => {
               className="h-[40px] md:h-[70px] flex md:hidden"
             />
             <span className="text-base sm:text-lg font-semibold text-white md:text-gray-700">
-              Welcome, dave
+              Welcome, {formattedUsername}
             </span>
           </div>
           <div className="flex items-center space-x-4 sm:space-x-5 md:space-x-8">

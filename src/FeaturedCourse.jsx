@@ -45,7 +45,7 @@ export default function FeaturedCourse() {
                       {/* Icon Container */}
                       <div className="w-[80px] flex justify-center">
                         <div className="h-20 w-20 bg-[#005764] rounded-full flex items-center justify-center">
-                          {product.icon}
+                          {/* {<product.Icon />} */}
                         </div>
                       </div>
                       {/* Course Details */}

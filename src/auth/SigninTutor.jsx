@@ -5,7 +5,7 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 import { useToast } from "@chakra-ui/react";
 import axios from "axios";
 
-export default function Signin() {
+export default function SigninTutor() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: "", password: "" });
   const toast = useToast();
@@ -19,7 +19,7 @@ export default function Signin() {
     const { email, password } = formData;
     try {
       const response = await axios.post(
-        "https://birdkin-server.onrender.com/api/auth/login",
+        "https://birdkin-server.onrender.com/api/auth/logintutor",
         {
           email,
           password,
@@ -29,13 +29,6 @@ export default function Signin() {
       if (response.status === 200) {
         // Save token and redirect
         localStorage.setItem("token", response.data.token);
-        const fullName = response.data.user.fullName;
-        const firstName = fullName.split(" ")[0]; // Split by space and get the first part
-
-        // Save the first name to local storage
-        localStorage.setItem("firstName", firstName);
-
-        console.log("First Name:", firstName);
         toast({
           title: "Login successful",
           description: "You are now logged in.",
@@ -76,7 +69,7 @@ export default function Signin() {
             className="h-20 sm:h-24 w-48 sm:w-60 mb-6"
           />
           <h2 className="text-2xl font-semibold text-white mb-4">
-            Login As Student
+            Login As Tutor
           </h2>
         </div>
         <form className="space-y-4">
@@ -128,19 +121,19 @@ export default function Signin() {
           <div className="mt-4 text-[12.5px] text-center">
             <span
               className="text-[#06b1bd] font-semibold cursor-pointer"
-              onClick={() => navigate("/forgot-password")}
+              onClick={() => navigate("/forgot-passwordtutor")}
             >
               Forgot password?
             </span>
           </div>
-        </div>
+        </div>{" "}
         <div className="mt-4 text-sm text-center text-white">
           Click to Login{" "}
           <span
             className="text-[#06b1bd] font-semibold cursor-pointer"
-            onClick={() => navigate("/signintutor")}
+            onClick={() => navigate("/signin")}
           >
-            As a Tutor
+            As a Student
           </span>
         </div>
       </div>

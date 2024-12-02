@@ -5,23 +5,39 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@chakra-ui/react";
 import { FaSearch } from "react-icons/fa";
-export default function Signup() {
+export default function SignupTutor() {
   const navigate = useNavigate();
+  const [phoneDropdownOpen, setPhoneDropdownOpen] = useState(false);
+  const [countryDropdownOpen, setCountryDropdownOpen] = useState(false);
   const phoneDropdownRef = useRef(null);
   const countryDropdownRef = useRef(null);
   const toast = useToast();
+  const countries = [
+    { name: "Nigeria", code: "+234" },
+    { name: "United States", code: "+1" },
+    { name: "India", code: "+91" },
+    { name: "United Kingdom", code: "+44" },
+    { name: "Japan", code: "+81" },
+    // Add more countries
+  ];
 
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
-    school: "",
+    university: "",
     firstSubject: "",
-    specificHelp: "",
+    firstgrade: "",
     secondSubject: "",
-    intendedUniversity: "",
-    password: "",
+    secondgrade: "",
+    commitment: "",
+    additionalTutoring: "",
+
     confirmPassword: "",
+    password: "",
   });
+
+  const [selectedCountry, setSelectedCountry] = useState("Country");
+  const [searchTerm, setSearchTerm] = useState("");
 
   const handleOutsideClick = (event) => {
     if (
@@ -60,28 +76,34 @@ export default function Signup() {
       const {
         fullName,
         email,
-        school,
+        university,
         firstSubject,
-        specificHelp,
+        firstgrade,
         secondSubject,
-        intendedUniversity,
-        password,
+        secondgrade,
+        commitment,
+        additionalTutoring,
+
         confirmPassword,
+        password,
       } = formData;
       // Backend API call to send OTP
 
       const response = await axios.post(
-        "https://birdkin-server.onrender.com/api/auth/signup",
+        "https://birdkin-server.onrender.com/api/auth/signupTutor",
         {
           fullName,
           email,
-          school,
+          university,
           firstSubject,
-          specificHelp,
+          firstgrade,
           secondSubject,
-          intendedUniversity,
-          password,
+          secondgrade,
+          commitment,
+          additionalTutoring,
+
           confirmPassword,
+          password,
         }
       );
       if (response.status) {
@@ -94,7 +116,7 @@ export default function Signup() {
           duration: 4000,
           isClosable: true,
         });
-        navigate("/verifyOtp", { state: { email } });
+        navigate("/verifyOtpTutor", { state: { email } });
       } else {
         toast({
           title: "Error sending OTP",
@@ -131,7 +153,7 @@ export default function Signup() {
             className="h-20 sm:h-24 w-48 sm:w-60 mb-6"
           />
           <h2 className="text-2xl font-semibold text-white mb-4">
-            Sign Up As Student
+            Sign Up As Tutor
           </h2>
         </div>
         <form className="space-y-4">
@@ -175,24 +197,23 @@ export default function Signup() {
             />{" "}
           </div>
 
-          {/* Country Input */}
           <div>
             <label className="block text-sm font-medium text-white">
-              School
+              University
             </label>
             <input
               type="text"
-              name="school"
-              value={formData.school}
+              name="university"
+              value={formData.university}
               onChange={(e) =>
                 setFormData((prev) => ({
                   ...prev,
-                  school: e.target.value,
+                  university: e.target.value,
                 }))
               }
-              className="w-full mt-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-white"
-              placeholder="Enter your school name"
-            />{" "}
+              className="w-full mt-1 mb-3 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-white"
+              placeholder="Enter your university"
+            />
           </div>
 
           <div>
@@ -209,30 +230,29 @@ export default function Signup() {
                   firstSubject: e.target.value,
                 }))
               }
-              className="w-full mt-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-white"
+              className="w-full mt-1 mb-3 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-white"
               placeholder="Enter first choice subject"
-            />{" "}
+            />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-white">
-              What specific help would you like for this subject?
+            <label className="block text-[13.5px] font-medium text-white">
+              What grade did you achieve in this subject?
             </label>
             <input
               type="text"
-              name="specificHelp"
-              value={formData.specificHelp}
+              name="firstgrade"
+              value={formData.firstgrade}
               onChange={(e) =>
                 setFormData((prev) => ({
                   ...prev,
-                  specificHelp: e.target.value,
+                  firstgrade: e.target.value,
                 }))
               }
-              className="w-full mt-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-white"
-              placeholder="Enter any specific help needed"
-            />{" "}
+              className="w-full mt-1 mb-3 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-white"
+              placeholder="Enter grade achieved in subject"
+            />
           </div>
-
           <div>
             <label className="block text-sm font-medium text-white">
               Second-Choice Subject for Tutoring
@@ -247,28 +267,82 @@ export default function Signup() {
                   secondSubject: e.target.value,
                 }))
               }
-              className="w-full mt-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-white"
+              className="w-full mt-1 mb-3 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-white"
               placeholder="Enter second choice subject"
-            />{" "}
+            />
           </div>
+
           <div>
-            <label className="block text-sm font-medium text-white">
-              Intended University Subject
+            <label className="block text-[13.5px] font-medium text-white">
+              What grade did you achieve in this subject?
             </label>
             <input
               type="text"
-              name="intendedUniversity"
-              value={formData.intendedUniversity}
+              name="secondgrade"
+              value={formData.secondgrade}
               onChange={(e) =>
                 setFormData((prev) => ({
                   ...prev,
-                  intendedUniversity: e.target.value,
+                  secondgrade: e.target.value,
                 }))
               }
-              className="w-full mt-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-white"
-              placeholder="enter your school name"
-            />{" "}
+              className="w-full mt-1 mb-3 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-white"
+              placeholder="Enter grade achieved in subject"
+            />
           </div>
+
+          <div>
+            <label className="block text-sm font-medium text-white">
+              Commitment Confirmation
+            </label>
+            <select
+              name="commitment"
+              value={formData.commitment}
+              onChange={(e) =>
+                setFormData((prev) => ({
+                  ...prev,
+                  commitment: e.target.value,
+                }))
+              }
+              className="w-full mt-1 mb-3 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-white bg-white"
+            >
+              <option value="" disabled>
+                Select your commitment
+              </option>
+              <option value="yes">
+                Yes, I can provide 5 hours of free tutoring
+              </option>
+              <option value="no">
+                No, I cannot provide 5 hours of free tutoring
+              </option>
+            </select>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-white">
+              Additional Tutoring
+            </label>
+            <select
+              name="additionalTutoring"
+              value={formData.additionalTutoring}
+              onChange={(e) =>
+                setFormData((prev) => ({
+                  ...prev,
+                  additionalTutoring: e.target.value,
+                }))
+              }
+              className="w-full mt-1 mb-3 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-white bg-white"
+            >
+              <option value="" disabled>
+                Select additional tutoring availability
+              </option>
+              <option value="none">I cannot volunteer additional hours</option>
+              <option value="5-10">5-10 extra hours</option>
+              <option value="10+">More than 10 extra hours</option>
+            </select>
+          </div>
+
+          {/* Confirm Password */}
           <div>
             <label className="block text-sm font-medium text-white">
               Password
@@ -284,8 +358,6 @@ export default function Signup() {
               placeholder="Enter password"
             />
           </div>
-
-          {/* Confirm Password */}
           <div>
             <label className="block text-sm font-medium text-white">
               Confirm Password
@@ -326,9 +398,9 @@ export default function Signup() {
           Do you want to register{" "}
           <span
             className="text-[#06b1bd] font-semibold cursor-pointer"
-            onClick={() => navigate("/signuptutor")}
+            onClick={() => navigate("/signup")}
           >
-            As a Tutor?
+            As a Student?
           </span>
         </div>
       </div>

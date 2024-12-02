@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import logo from "../assets/files/logo2.png";
 import { useToast } from "@chakra-ui/react";
-export default function VerifyOTP() {
+export default function SignupVerifyOtpTutor() {
   const [otp, setOtp] = useState("");
   const navigate = useNavigate();
   const { state } = useLocation(); // Retrieve email and phone from signup.
@@ -11,7 +11,7 @@ export default function VerifyOTP() {
   const handleVerify = async () => {
     try {
       const response = await axios.post(
-        "https://birdkin-server.onrender.com/api/auth/verifyOtp",
+        "https://birdkin-server.onrender.com/api/auth/verifyOtpTutor",
         {
           email: state.email,
           otp,

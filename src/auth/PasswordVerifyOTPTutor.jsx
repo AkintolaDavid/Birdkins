@@ -5,7 +5,7 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 import axios from "axios";
 import { useToast } from "@chakra-ui/react";
 
-export default function PasswordVerifyOTP() {
+export default function PasswordVerifyOTPTutor() {
   const navigate = useNavigate();
   const location = useLocation();
   const toast = useToast();
@@ -42,7 +42,7 @@ export default function PasswordVerifyOTP() {
     try {
       // Send OTP verification request to the backend
       const response = await axios.post(
-        "https://birdkin-server.onrender.com/api/auth/verify-otp",
+        "https://birdkin-server.onrender.com/api/auth/verify-otptutor",
         { email, otp }
       );
 
@@ -55,7 +55,7 @@ export default function PasswordVerifyOTP() {
           duration: 5000,
           isClosable: true,
         });
-        navigate("/reset-password", { state: { email } }); // Pass email to reset password page
+        navigate("/reset-passwordtutor", { state: { email } }); // Pass email to reset password page
       }
     } catch (err) {
       const errorMessage =
@@ -83,7 +83,9 @@ export default function PasswordVerifyOTP() {
       <div className="bg-[#003E47] shadow-md rounded-md p-8  w-[90%] sm:w-full max-w-md">
         <div className="flex flex-col items-center">
           <img src={logo} alt="Logo" className="h-24 w-60 mb-6" />
-          <h2 className="text-2xl font-semibold text-white mb-4">Verify OTP</h2>
+          <h2 className="text-2xl font-semibold text-white mb-4">
+            Tutor Verify OTP
+          </h2>
         </div>
         <form
           onSubmit={(e) => {

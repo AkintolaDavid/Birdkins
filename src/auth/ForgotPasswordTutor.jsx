@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import axios from "axios";
 
-export default function ForgotPassword() {
+export default function ForgotPasswordTutor() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
@@ -16,10 +16,10 @@ export default function ForgotPassword() {
 
     try {
       await axios.post(
-        "https://birdkin-server.onrender.com/api/auth/send-otp",
+        "https://birdkin-server.onrender.com/api/auth/send-otptutor",
         { email }
       ); // Adjust the endpoint as needed
-      navigate("/verify-otp", { state: { email } });
+      navigate("/verify-otptutor", { state: { email } });
     } catch (err) {
       setError(err.response?.data?.message || "Failed to send OTP");
     } finally {
@@ -37,7 +37,7 @@ export default function ForgotPassword() {
         <div className="flex flex-col items-center">
           <img src={logo} alt="Logo" className="h-24 w-60 mb-6" />
           <h2 className="text-2xl font-semibold text-white mb-4">
-            Forgot Password
+            Tutor Forgot Password
           </h2>
         </div>
         <form

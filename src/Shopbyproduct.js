@@ -3,6 +3,7 @@ import { SiMicrosoftexcel } from "react-icons/si";
 import { TbBrandPython } from "react-icons/tb";
 import { SiPowerbi } from "react-icons/si";
 import img from "./assets/image.jpg";
+
 const Shopbyproduct = [
   {
     id: 1,
@@ -14,7 +15,7 @@ const Shopbyproduct = [
     price: "$20",
     rating: 4.5,
     votes: 4,
-    // icon: <SiMicrosoftexcel className="text-white text-4xl" />,
+    // Icon: () => <SiMicrosoftexcel className="text-white text-4xl" />,
   },
   {
     id: 2,
@@ -26,7 +27,7 @@ const Shopbyproduct = [
     price: "$15",
     rating: 4.5,
     votes: 4,
-    // icon: <TbBrandPython className="text-white text-4xl" />,
+    // Icon: () => <TbBrandPython className="text-white text-4xl" />,
   },
   {
     id: 3,
@@ -38,7 +39,7 @@ const Shopbyproduct = [
     price: "Free",
     rating: 4.5,
     votes: 4,
-    // icon: <FaDatabase className="text-white text-4xl" />,
+    // Icon: () => <FaDatabase className="text-white text-4xl" />,
   },
   {
     id: 4,
@@ -50,7 +51,7 @@ const Shopbyproduct = [
     price: "$20",
     rating: 4.5,
     votes: 4,
-    // icon: <SiPowerbi className="text-white text-4xl" />,
+    // Icon: () => <SiPowerbi className="text-white text-4xl" />,
   },
 ];
 

@@ -4,32 +4,27 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "./swiperCustom.css";
-import {
-  Navigation,
-  Pagination,
-  Mousewheel,
-  Keyboard,
-  A11y,
-} from "swiper/modules";
+import { Pagination, Keyboard, A11y } from "swiper/modules";
 import Shopbyproduct from "./Shopbyproduct";
 import { FaQuoteLeft } from "react-icons/fa";
 import guy from "./assets/guy.jpg";
 import Blog from "./Blog";
+import Footer from "./Footer";
 
 export default function Testimonial() {
   return (
     <>
-      <div className="flex flex-col justify-center items-center h-[350px] sm:h-[650px]  gap-8 sm:gap-14 md:gap-20 bg-[#F8F8F8]">
+      <div className="flex flex-col justify-center items-center h-[350px] sm:h-[650px] gap-8 sm:gap-14 md:gap-20 bg-[#F8F8F8]">
         <span className="font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
           Our Testimonial Stories
         </span>
         <div className="max-w-screen-xl w-full">
           <Swiper
+            cssMode={true}
             pagination={{ clickable: true }}
             navigation={false}
-            mousewheel={true}
             keyboard={true}
-            modules={[Pagination, Mousewheel, Keyboard]}
+            modules={[Pagination, Keyboard]}
             className="mySwiper"
             breakpoints={{
               150: {
@@ -44,6 +39,10 @@ export default function Testimonial() {
                 slidesPerView: 3,
                 spaceBetween: 15,
               },
+            }}
+            // Prevent Swiper from capturing vertical scroll
+            onScroll={(swiper, event) => {
+              if (event.deltaY) event.stopPropagation();
             }}
           >
             {Shopbyproduct.map((product) => (
@@ -81,8 +80,7 @@ export default function Testimonial() {
           </Swiper>
         </div>
       </div>
-
-      <Blog></Blog>
+      <Footer></Footer>
     </>
   );
 }

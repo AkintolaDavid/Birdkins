@@ -5,7 +5,7 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 import axios from "axios";
 import { useToast } from "@chakra-ui/react";
 
-export default function ResetPassword() {
+export default function ResetPasswordTutor() {
   const navigate = useNavigate();
   const { state } = useLocation();
   const email = state?.email; // Email passed from verify-otp
@@ -36,7 +36,7 @@ export default function ResetPassword() {
     if (formData.newPassword === formData.confirmPassword) {
       try {
         const response = await axios.post(
-          "https://birdkin-server.onrender.com/api/auth/reset-password",
+          "https://birdkin-server.onrender.com/api/auth/reset-passwordtutor",
           {
             email,
             newPassword: formData.newPassword,
@@ -52,7 +52,7 @@ export default function ResetPassword() {
           isClosable: true,
         });
 
-        navigate("/signin"); // Redirect to login page
+        navigate("/signintutor"); // Redirect to login page
       } catch (err) {
         toast({
           title: "Password Reset Failed",
@@ -86,7 +86,7 @@ export default function ResetPassword() {
         <div className="flex flex-col items-center">
           <img src={logo} alt="Logo" className="h-24 w-60 mb-6" />
           <h2 className="text-2xl font-semibold text-white mb-4">
-            Reset Password
+            Tutor Reset Password
           </h2>
         </div>
         <form className="space-y-4">

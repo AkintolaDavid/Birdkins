@@ -49,10 +49,7 @@ export default function LandingBox() {
 
           {/* Section 3 */}
           <div className="flex flex-col items-start text-left gap-2 sm:gap-4 p-3 sm:p-7  ">
-            <LiaChalkboardTeacherSolid
-              TfiUser
-              className="text-[#00A1AB] text-4xl sm:text-5xl"
-            />
+            <LiaChalkboardTeacherSolid className="text-[#00A1AB] text-4xl sm:text-5xl" />
             <span className="text-lg sm:text-xl font-semibold">
               Illustrative Teaching
             </span>
