@@ -175,7 +175,7 @@ export default function Landing() {
               “Elevating education, one wing at a time”
             </span>
             <button className="mx-4 sm:mx-8 lg:mx-16 w-56 sm:w-64 md:w-80 py-3 md:py-4   rounded-md bg-[#00A1AB] text-white font-medium text-lg border-2 border-[#005764] transition-all duration-300 hover:bg-[#005764] hover:border-[#00A1AB]">
-              Get involved Now!
+              <Link to="/signup">Get involved Now!</Link>
             </button>
           </div>
         </div>
