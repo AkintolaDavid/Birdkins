@@ -1,30 +1,54 @@
-import React, { useState } from "react";
-import Sidebar from "./Sidebar"; // Import Sidebar Component
+import React, { useState, useEffect } from "react";
+import Sidebar from "./Sidebar";
 import { Link, useNavigate } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
-import allCourses from "./allCourses";
 import logo from "./assets/files/logo2.png";
 import { MdOutlineMessage } from "react-icons/md";
 import { IoNotifications } from "react-icons/io5";
 import { TbLogout } from "react-icons/tb";
 import { useToast } from "@chakra-ui/react";
+import axios from "axios";
+
 const Home = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [courses, setCourses] = useState([]);
   const navigate = useNavigate();
   const toast = useToast();
   const username = localStorage.getItem("firstName");
   const formattedUsername =
-    username.charAt(0).toUpperCase() + username.slice(1);
+    username?.charAt(0).toUpperCase() + username?.slice(1);
 
+  // Fetch courses from backend
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const response = await axios.get(
+          "https://birdkin-server.onrender.com/api/courses"
+        ); // Update to your backend URL
+        setCourses(response.data);
+      } catch (error) {
+        console.error("Error fetching courses:", error);
+        toast({
+          title: "Error",
+          description: "Failed to load courses.",
+          status: "error",
+          position: "top-right",
+          duration: 5000,
+          isClosable: true,
+        });
+      }
+    };
+    fetchCourses();
+  }, [toast]);
+
+  // Filter courses based on category
   const filteredCourses =
     selectedCategory === "All"
-      ? allCourses
-      : allCourses.filter((course) => course.category === selectedCategory);
-  const handleLogout = () => {
-    // Remove the token from localStorage to log out the user
-    localStorage.removeItem("token");
+      ? courses
+      : courses.filter((course) => course.category === selectedCategory);
 
-    // Show toast notification
+  const handleLogout = () => {
+    localStorage.removeItem("token");
     toast({
       title: "Logout Successful",
       description: "You have been logged out.",
@@ -33,10 +57,9 @@ const Home = () => {
       duration: 5000,
       isClosable: true,
     });
-
-    // Redirect to the login page after logging out
     navigate("/signin");
   };
+
   return (
     <div className="min-h-screen flex">
       {/* Sidebar */}
@@ -62,7 +85,10 @@ const Home = () => {
             </span>
           </div>
           <div className="flex items-center space-x-4 sm:space-x-5 md:space-x-8">
-            <MdOutlineMessage className="text-xl sm:text-2xl text-white md:text-gray-500" />
+            <MdOutlineMessage
+              onClick={() => navigate("/UserMessagePage")} // Navigate to UserMessagePage
+              className="text-xl sm:text-2xl text-white md:text-gray-500 cursor-pointer" // Add cursor-pointer for click feedback
+            />{" "}
             <IoNotifications className="text-xl sm:text-2xl text-white md:text-gray-500" />
             <button
               onClick={handleLogout}

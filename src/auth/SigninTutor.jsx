@@ -28,7 +28,8 @@ export default function SigninTutor() {
 
       if (response.status === 200) {
         // Save token and redirect
-        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("tutortoken", response.data.token);
+        localStorage.setItem("tutoremail", email);
         toast({
           title: "Login successful",
           description: "You are now logged in.",
@@ -37,7 +38,7 @@ export default function SigninTutor() {
           duration: 5000,
           isClosable: true,
         });
-        navigate("/home"); // Redirect to dashboard
+        navigate("/TutorMessagePage"); // Redirect to dashboard
       }
     } catch (error) {
       // Handle error cases

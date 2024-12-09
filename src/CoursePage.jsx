@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import {
   FaStar,
@@ -7,7 +7,7 @@ import {
   FaChevronRight,
 } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa";
-import coursesData from "./mockCourses";
+
 const whatYouWillLearn = [
   "Introduction to React",
   "State and Props",
@@ -21,10 +21,42 @@ const whatYouWillLearn = [
   "Advanced Topics",
   "Building a React Project",
 ];
+
 const CoursePage = () => {
   const { id } = useParams(); // Get course ID from URL
-  const course = coursesData.find((course) => course.id === parseInt(id)); // Find the course
-  console.log(course);
+  const [course, setCourse] = useState(null); // State for course data
+  const [loading, setLoading] = useState(true); // State for loading
+  const [error, setError] = useState(null); // State for error handling
+
+  useEffect(() => {
+    const fetchCourse = async () => {
+      try {
+        const response = await fetch(
+          `https://birdkin-server.onrender.com/api/courses/${id}`
+        ); // Replace with your API URL
+        if (!response.ok) {
+          throw new Error("Failed to fetch course");
+        }
+        const data = await response.json();
+        setCourse(data);
+        setLoading(false);
+      } catch (err) {
+        setError(err.message);
+        setLoading(false);
+      }
+    };
+
+    fetchCourse();
+  }, [id]);
+
+  if (loading) {
+    return <p className="text-center">Loading...</p>;
+  }
+
+  if (error) {
+    return <p className="text-center text-red-500">{error}</p>;
+  }
+
   if (!course) {
     return <p className="text-center text-red-500">Course not found!</p>;
   }
@@ -66,13 +98,13 @@ const CoursePage = () => {
         <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold">{title}</h1>
         <p className="text-base md:text-lg">{description}</p>
         <div className="flex items-center mb-4">
-          <div className="flex items-center gap-1  text-sm md:text-base">
+          <div className="flex items-center gap-1 text-sm md:text-base">
             {renderStars()}
           </div>
-          <span className="text-yellow-500 ml-2  text-sm md:text-base">
+          <span className="text-yellow-500 ml-2 text-sm md:text-base">
             {rating.toFixed(1)}
           </span>
-          <span className="text-gray-400 ml-2  text-sm md:text-base">
+          <span className="text-gray-400 ml-2 text-sm md:text-base">
             (20 ratings)
           </span>
           <span className="mx-2 hidden md:flex">|</span>
@@ -80,18 +112,20 @@ const CoursePage = () => {
             32 students enrolled
           </span>
         </div>
-        <p className="text-gray-400  text-sm md:text-base">
-          Created by <span className="text-blue-500">John Doe</span>
+        <p className="text-gray-400 text-sm md:text-base">
+          Created by <span className="text-blue-500">{lecturer}</span>
         </p>
-        <p className="text-gray-400  text-sm md:text-base">
+        <p className="text-gray-400 text-sm md:text-base">
           Last updated: 11-01-2023
         </p>
-        <p className="text-gray-400  text-sm md:text-base">Language: English</p>
-        <button className="bg-blue-500 w-60 sm:w-80 rounded-md h-10 sm:h-12 font-medium mt-5">
+        <p className="text-gray-400 text-sm md:text-base">Language: English</p>
+        <button
+          className="bg-blue-500 w-60 sm:w-80 rounded-md h-10 sm:h-12 font-medium mt-5"
+          onClick={() => (window.location.href = `/course-interaction/${id}`)}
+        >
           Proceed to course
         </button>
       </div>
-
       {/* Course Content */}
       <div className="bg-white w-full px-8 py-12 flex flex-col sm:flex-row">
         {/* Left Section */}
@@ -106,7 +140,6 @@ const CoursePage = () => {
             ))}
           </div>
         </div>
-
         {/* Right Section */}
         <div className="w-full sm:w-2/5 sm:ml-6 mt-8 sm:mt-0">
           {/* Video Preview */}
@@ -119,7 +152,6 @@ const CoursePage = () => {
               Your browser does not support the video tag.
             </video>
           </div>
-
           {/* Course Includes */}
           <div>
             <h3 className="text-xl font-bold mb-4">

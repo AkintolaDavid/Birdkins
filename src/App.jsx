@@ -24,6 +24,11 @@ import SigninTutor from "./auth/SigninTutor";
 import ForgotPasswordTutor from "./auth/ForgotPasswordTutor";
 import PasswordVerifyOTPTutor from "./auth/PasswordVerifyOTPTutor";
 import ResetPasswordTutor from "./auth/ResetPasswordTutor";
+import TutorUserPage from "./TutorUserPage";
+import CourseInteraction from "./CourseInteraction";
+import AdminPage from "./AdminPage";
+import TutorMessagePage from "./TutorMessagePage";
+import UserMessagePage from "./UserMessagePage";
 
 function App() {
   return (
@@ -40,6 +45,9 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/verify-otp" element={<PasswordVerifyOTP />} />
           <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/adminpage" element={<AdminPage />} />
+          <Route path="/TutorMessagePage" element={<TutorMessagePage />} />
+          <Route path="/UserMessagePage" element={<UserMessagePage />} />
           <Route
             path="/forgot-passwordtutor"
             element={<ForgotPasswordTutor />}
@@ -51,6 +59,22 @@ function App() {
             element={
               <ProtectedRoute>
                 <Home />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/tutoruserpage"
+            element={
+              <ProtectedRoute>
+                <TutorUserPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/course-interaction/:id"
+            element={
+              <ProtectedRoute>
+                <CourseInteraction />
               </ProtectedRoute>
             }
           />

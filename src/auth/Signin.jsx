@@ -25,7 +25,6 @@ export default function Signin() {
           password,
         }
       );
-
       if (response.status === 200) {
         // Save token and redirect
         localStorage.setItem("token", response.data.token);
@@ -34,8 +33,8 @@ export default function Signin() {
 
         // Save the first name to local storage
         localStorage.setItem("firstName", firstName);
+        localStorage.setItem("userID", response.data.user.id);
 
-        console.log("First Name:", firstName);
         toast({
           title: "Login successful",
           description: "You are now logged in.",

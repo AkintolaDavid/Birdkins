@@ -70,11 +70,7 @@ export default function FeaturedCourse() {
                           </span>
                         </div>
                         <div className="text-base font-medium flex items-center gap-2">
-                          <Avatar
-                            src={image}
-                            fallbackSrc="https://example.com/default-image.jpg"
-                            size="sm"
-                          />
+                          <Avatar src={image} size="sm" />
                           By {product.lecturerName}
                         </div>
                         <div className="text-gray-500">
