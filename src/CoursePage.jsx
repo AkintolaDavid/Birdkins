@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import {
   FaStar,
   FaStarHalfAlt,
@@ -27,7 +27,7 @@ const CoursePage = () => {
   const [course, setCourse] = useState(null); // State for course data
   const [loading, setLoading] = useState(true); // State for loading
   const [error, setError] = useState(null); // State for error handling
-
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchCourse = async () => {
       try {
@@ -121,7 +121,7 @@ const CoursePage = () => {
         <p className="text-gray-400 text-sm md:text-base">Language: English</p>
         <button
           className="bg-blue-500 w-60 sm:w-80 rounded-md h-10 sm:h-12 font-medium mt-5"
-          onClick={() => (window.location.href = `/courseinteraction/${id}`)}
+          onClick={() => navigate(`/courseinteraction/${id}`)}
         >
           Proceed to course
         </button>
