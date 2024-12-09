@@ -49,6 +49,7 @@ const Home = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("tutortoken");
     toast({
       title: "Logout Successful",
       description: "You have been logged out.",

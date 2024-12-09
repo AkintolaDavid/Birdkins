@@ -121,7 +121,7 @@ const CoursePage = () => {
         <p className="text-gray-400 text-sm md:text-base">Language: English</p>
         <button
           className="bg-blue-500 w-60 sm:w-80 rounded-md h-10 sm:h-12 font-medium mt-5"
-          onClick={() => (window.location.href = `/course-interaction/${id}`)}
+          onClick={() => (window.location.href = `/courseinteraction/${id}`)}
         >
           Proceed to course
         </button>

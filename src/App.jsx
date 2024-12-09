@@ -71,7 +71,7 @@ function App() {
             }
           />
           <Route
-            path="/course-interaction/:id"
+            path="/courseinteraction/:id"
             element={
               <ProtectedRoute>
                 <CourseInteraction />

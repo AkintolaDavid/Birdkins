@@ -7,9 +7,6 @@ import { useToast } from "@chakra-ui/react";
 import { FaSearch } from "react-icons/fa";
 export default function SignupTutor() {
   const navigate = useNavigate();
-  const [phoneDropdownOpen, setPhoneDropdownOpen] = useState(false);
-  const [countryDropdownOpen, setCountryDropdownOpen] = useState(false);
-  const phoneDropdownRef = useRef(null);
   const countryDropdownRef = useRef(null);
   const toast = useToast();
   const countries = [
@@ -35,24 +32,6 @@ export default function SignupTutor() {
     confirmPassword: "",
     password: "",
   });
-
-  const [selectedCountry, setSelectedCountry] = useState("Country");
-  const [searchTerm, setSearchTerm] = useState("");
-
-  const handleOutsideClick = (event) => {
-    if (
-      phoneDropdownRef.current &&
-      !phoneDropdownRef.current.contains(event.target)
-    ) {
-      setPhoneDropdownOpen(false);
-    }
-    if (
-      countryDropdownRef.current &&
-      !countryDropdownRef.current.contains(event.target)
-    ) {
-      setCountryDropdownOpen(false);
-    }
-  };
 
   useEffect(() => {
     document.addEventListener("click", handleOutsideClick);

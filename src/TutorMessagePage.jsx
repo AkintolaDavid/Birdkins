@@ -112,7 +112,7 @@ const TutorMessagePage = () => {
   return (
     <>
       {" "}
-      <header className="bg-[#003E47] md:bg-white shadow-md py-5 px-3 sm:px-6 flex justify-between items-center">
+      <header className="bg-[#003E47] md:bg-white shadow-md py-5 pl-0 p-4 sm:px-7 flex justify-between items-center">
         <div className="flex items-center gap-0 sm:gap-2 md:gap-5">
           <img
             src={logo}
@@ -124,14 +124,14 @@ const TutorMessagePage = () => {
           </span>
         </div>
         <div className="flex items-center space-x-4 sm:space-x-5 md:space-x-8">
-          <MdOutlineMessage className="text-xl sm:text-2xl text-white md:text-gray-500" />
+          <MdOutlineMessage className="text-2xl text-white md:text-gray-500" />
           {/* <IoNotifications className="text-xl sm:text-2xl text-white md:text-gray-500" /> */}
           <button
             onClick={handleLogout}
             className="sm:bg-red-500 text-white sm:px-3 md:px-4 py-[6px] md:py-2 rounded-md transition flex items-center gap-2"
           >
             <span className="hidden sm:flex"> Logout</span>
-            <TbLogout className="text-xl sm:text-2xl" />
+            <TbLogout className="text-2xl" />
           </button>
         </div>
       </header>
